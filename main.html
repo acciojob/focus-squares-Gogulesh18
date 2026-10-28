@@ -11,6 +11,15 @@
 			background-color: #E6E6FA; /*lavender */
 			cursor: pointer;
 		}
+
+        .square:hover {
+            background-color: #E6E6FA;
+        }
+
+        /* A utility class applied via JavaScript to the non-hovered squares */
+        .square.turn-red {
+            background-color: #6F4E37;
+        }
 	</style>
 </head>
 <body>
@@ -18,7 +27,27 @@
 	<div class="square" id="square2" ></div>
 	<div class="square" id="square3" ></div>
 
-	<script type="text/javascript" src="./script.js">
+	<script>
+		// Select all elements with the class 'square'
+		const squares = document.querySelectorAll('.square');
+
+		squares.forEach(square => {
+			// When mouse enters a square
+			square.addEventListener('mouseenter', () => {
+				squares.forEach(s => {
+					// Add the red class to all squares EXCEPT the one being hovered
+					if (s !== square) {
+						s.classList.add('turn-red');
+					}
+				});
+			});
+
+			// When mouse leaves the square
+			square.addEventListener('mouseleave', () => {
+				// Remove the red class from all squares to restore original color
+				squares.forEach(s => s.classList.remove('turn-red'));
+			});
+		});
 	</script>
 </body>
 </html>
